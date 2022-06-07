@@ -1,6 +1,17 @@
-# Cessen's Misc Animation Tools
+# Cessen's Misc Blender Tools
 
-This addon is just a collection of simple operators that I use in my animation worklow.  They're mainly for my person use, so I'm not putting any effort into documenting them.  But you can try to use them if you like.
+This addon is a collection of random tools and tweaks to Blender that I use in my personal workflows.
 
-They aren't accessible through menus or buttons, so you'll need to enable `Developer Extras` in `Preferences -> Interface` so that they're searchable in the F3 search menu.
+It is 100% unsupported, and I only maintain it for my personal use.  You can try to use it if you like, but... uh... good luck.
 
+
+## License
+
+This addon is licensed under the GNU General Public License, version 2 or later.  Please see LICENSE.md for details.
+
+
+## Contributing
+
+Because I maintain this addon only for my personal use, issues and PRs will very likely be ignored or closed without explanation.
+
+If you wish to develop this addon, please fork it into a separate project.
