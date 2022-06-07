@@ -17,18 +17,19 @@
 #======================= END GPL LICENSE BLOCK ========================
 
 bl_info = {
-    "name": "Cessen's Misc Animation Tools",
+    "name": "Cessen's Misc Blender Tools",
     "version": (0, 1, 0),
     "author": "Nathan Vegdahl",
-    "blender": (2, 93, 0),
-    "description": "Misc tools to make some animation tasks a little easier",
+    "blender": (3, 0, 0),
+    "description": "Misc tools for Cessen's personal workflows.",
     "location": "",
     # "doc_url": "",
-    "category": "Animation",
+    "category": "Cessen",
 }
 
 
 import bpy
+
 
 class NormalizeQuaternions(bpy.types.Operator):
     """Normalizes the quaternion rotation coordinates of selected objects and bones"""
@@ -51,15 +52,44 @@ class NormalizeQuaternions(bpy.types.Operator):
                 
         return {'FINISHED'}
 
+
+class ToggleAddSubWeightPaintBrush(bpy.types.Operator):
+    """Quick op for toggling between my most common weight painting brushes"""
+    bl_idname = "paint.weight_toggle_add_sub"
+    bl_label = "Toggle Add/Sub Brush"
+
+    @classmethod
+    def poll(cls, context):
+        return context.active_object is not None and \
+               context.mode == 'PAINT_WEIGHT'
+
+    def execute(self, context):
+        if "Add" not in bpy.data.brushes:
+            b = bpy.data.brushes.new("Add", mode='WEIGHT_PAINT')
+            b.blend = 'ADD'
+        if "Subtract" not in bpy.data.brushes:
+            b = bpy.data.brushes.new("Subtract", mode='WEIGHT_PAINT')
+            b.blend = 'SUB'
+
+        if context.tool_settings.weight_paint.brush == bpy.data.brushes["Add"]:
+            context.tool_settings.weight_paint.brush = bpy.data.brushes["Subtract"]
+        else:
+            context.tool_settings.weight_paint.brush = bpy.data.brushes["Add"]
+
+        return {'FINISHED'}
+
+
 #========================================================
 
 
 def register():
     bpy.utils.register_class(NormalizeQuaternions)
+    bpy.utils.register_class(ToggleAddSubWeightPaintBrush)
 
 
 def unregister():
     bpy.utils.unregister_class(NormalizeQuaternions)
+    bpy.utils.unregister_class(ToggleAddSubWeightPaintBrush)
 
 
 if __name__ == "__main__":
